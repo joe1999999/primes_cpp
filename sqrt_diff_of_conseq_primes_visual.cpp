@@ -49,10 +49,10 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    // Set up the camera
-    gluLookAt(0, 0, 10,  // Camera position
-              0, 0, 0,   // Look at point
-              0, 1, 0);  // Up direction
+    // Set up the camera to view from the side
+    gluLookAt(0, 0, 10,  // Camera position (10 units along the z-axis)
+              0, 0, 0,   // Look at point (origin)
+              0, 1, 0);  // Up direction (y-axis)
 
     // Render the unit sphere (constant size)
     glPushMatrix();
@@ -85,11 +85,11 @@ void initLighting() {
     glEnable(GL_LIGHTING); // Enable lighting
     glEnable(GL_LIGHT0);   // Enable light source 0
 
-    // Define light properties
-    GLfloat lightPosition[] = {0.0f, 5.0f, 5.0f, 1.0f}; // Light position
-    GLfloat lightAmbient[] = {0.2f, 0.2f, 0.2f, 1.0f};  // Ambient light
-    GLfloat lightDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};  // Diffuse light
-    GLfloat lightSpecular[] = {1.0f, 1.0f, 1.0f, 1.0f}; // Specular light
+    // Define light properties (positioned to the side)
+    GLfloat lightPosition[] = {10.0f, 0.0f, 0.0f, 1.0f}; // Light position (10 units along the x-axis)
+    GLfloat lightAmbient[] = {0.2f, 0.2f, 0.2f, 1.0f};   // Ambient light
+    GLfloat lightDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};   // Diffuse light
+    GLfloat lightSpecular[] = {1.0f, 1.0f, 1.0f, 1.0f};  // Specular light
 
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
     glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
