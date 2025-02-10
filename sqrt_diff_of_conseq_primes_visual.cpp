@@ -41,19 +41,31 @@ std::vector<double> calculateSquareRootDifferences(const std::vector<int>& prime
 std::vector<double> differences;
 size_t currentSphereIndex = 0;
 
+// Radius of the unit sphere (volume = 1)
+const double unitSphereRadius = pow(3.0 / (4.0 * M_PI), 1.0 / 3.0);
+
 // OpenGL display function
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
     // Set up the camera
-    gluLookAt(0, 0, 5,  // Camera position
-              0, 0, 0,  // Look at point
-              0, 1, 0); // Up direction
+    gluLookAt(0, 0, 10,  // Camera position
+              0, 0, 0,   // Look at point
+              0, 1, 0);  // Up direction
 
+    // Render the unit sphere (constant size)
+    glPushMatrix();
+    glTranslatef(-2.0f, 0.0f, 0.0f); // Position the unit sphere to the left
+    glutSolidSphere(unitSphereRadius, 20, 20); // Render unit sphere
+    glPopMatrix();
+
+    // Render the changing sphere (size based on differences)
     if (currentSphereIndex < differences.size()) {
-        // Render the current sphere
-        glutSolidSphere(differences[currentSphereIndex], 20, 20);
+        glPushMatrix();
+        glTranslatef(2.0f, 0.0f, 0.0f); // Position the changing sphere to the right
+        glutSolidSphere(differences[currentSphereIndex], 20, 20); // Render changing sphere
+        glPopMatrix();
     }
 
     glutSwapBuffers();
